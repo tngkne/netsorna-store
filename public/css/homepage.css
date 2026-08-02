@@ -1,0 +1,568 @@
+/**
+ * public/css/homepage.css
+ * Editorial homepage styling — full-bleed hero, gallery sections, and footer
+ */
+
+:root {
+  --nav-height: 70px;
+  --spacing-xl: 60px;
+  --spacing-lg: 40px;
+  --spacing-md: 24px;
+  --spacing-sm: 16px;
+  --text-dark: #111111;
+  --text-muted: #666666;
+  --border-color: #e8e6e0;
+  --accent-light: #f9f8f6;
+}
+
+/* ==========================================
+   HERO SECTION - FULL-BLEED IMAGE WITH OVERLAY
+   ========================================== */
+
+.homepage-hero {
+  position: relative;
+  width: 100vw;
+  height: 90vh;
+  min-height: 500px;
+  max-height: 1200px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #ffffff;
+  padding: 0 clamp(20px, 5vw, 60px);
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  line-height: 1;
+}
+
+/* ==========================================
+   BIO / ARTIST DESCRIPTION SECTION
+   ========================================== */
+
+.homepage-bio {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(60px, 8vw, 100px) clamp(20px, 4vw, 40px);
+  box-sizing: border-box;
+}
+
+.bio-container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vw, 60px);
+  align-items: center;
+}
+
+.bio-text {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.65;
+  font-weight: 500;
+  color: var(--text-dark);
+  text-align: center;
+  max-width: 700px;
+  margin: 0;
+}
+
+.bio-image-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-width: 900px;
+  overflow: hidden;
+  border-radius: 0;
+  background: var(--accent-light);
+}
+
+.bio-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==========================================
+   FEATURED ARTWORK SECTION - FULL-BLEED WITH TEXT OVERLAY
+   ========================================== */
+
+.homepage-featured {
+  position: relative;
+  width: 100vw;
+  height: 85vh;
+  min-height: 600px;
+  max-height: 1000px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.featured-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.featured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.featured-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 2;
+}
+
+.featured-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  padding: clamp(40px, 5vw, 80px);
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: clamp(20px, 3vw, 40px);
+  color: #ffffff;
+}
+
+.featured-text-block {
+  max-width: 600px;
+  flex: 0 1 100%;
+}
+
+@media (min-width: 768px) {
+  .featured-text-block {
+    flex: 0 1 auto;
+  }
+}
+
+.featured-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.3px;
+}
+
+.featured-description {
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  opacity: 0.95;
+  max-width: 500px;
+}
+
+.featured-link {
+  display: inline-block;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 4px;
+  transition: opacity 0.3s ease;
+}
+
+.featured-link:hover {
+  opacity: 0.85;
+}
+
+/* ==========================================
+   EDITORIAL GALLERY SECTIONS
+   ========================================== */
+
+.homepage-gallery-section {
+  position: relative;
+  width: 100vw;
+  height: 70vh;
+  min-height: 500px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.gallery-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.gallery-caption-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(30px, 5vw, 60px);
+  text-align: center;
+  color: #ffffff;
+}
+
+.gallery-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  line-height: 1.1;
+  letter-spacing: -0.3px;
+}
+
+.gallery-subtitle {
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.9;
+  max-width: 500px;
+}
+
+/* ==========================================
+   PRODUCTION TIMELINE NOTICE SECTION
+   ========================================== */
+
+.homepage-notice {
+  width: 100%;
+  padding: clamp(50px, 8vw, 80px) clamp(20px, 4vw, 40px);
+  background: var(--accent-light);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.notice-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.notice-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 20px 0;
+  color: var(--text-dark);
+}
+
+.notice-text {
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin: 0 0 32px 0;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notice-actions {
+  display: flex;
+  gap: clamp(12px, 2vw, 20px);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.notice-actions .btn {
+  min-width: 200px;
+}
+
+/* ==========================================
+   DARK FOOTER STYLING
+   ========================================== */
+
+.homepage-footer {
+  background: #000000;
+  color: #ffffff;
+  padding: clamp(50px, 7vw, 80px) clamp(20px, 4vw, 40px) clamp(30px, 5vw, 50px);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto clamp(40px, 5vw, 60px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(30px, 5vw, 50px);
+  padding-bottom: clamp(30px, 4vw, 50px);
+  border-bottom: 1px solid #222222;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-studio-bio {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #a1a1a1;
+  margin: 0;
+  max-width: 280px;
+}
+
+.footer-studio-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+  display: inline-block;
+}
+
+.footer-link-group {
+  margin-bottom: clamp(12px, 2vw, 20px);
+}
+
+.footer-link-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  text-transform: capitalize;
+}
+
+.footer-link {
+  display: inline-block;
+  color: #a1a1a1;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+.footer-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+.footer-nav-list a {
+  color: #a1a1a1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-nav-list a:hover {
+  color: #ffffff;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: clamp(20px, 3vw, 40px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #666666;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ==========================================
+   RESPONSIVE BREAKPOINTS & ADAPTATIONS
+   ========================================== */
+
+@media (max-width: 480px) {
+  .homepage-hero {
+    height: 70vh;
+    min-height: 400px;
+  }
+
+  .hero-title {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .homepage-featured {
+    height: 75vh;
+    min-height: 500px;
+  }
+
+  .homepage-gallery-section {
+    height: 60vh;
+    min-height: 400px;
+  }
+
+  .featured-content {
+    padding: 30px clamp(16px, 3vw, 24px);
+  }
+
+  .gallery-caption-overlay {
+    padding: 24px 16px;
+  }
+
+  .notice-actions {
+    flex-direction: column;
+  }
+
+  .notice-actions .btn {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .homepage-hero {
+    height: 80vh;
+  }
+
+  .homepage-featured {
+    height: 80vh;
+  }
+
+  .homepage-gallery-section {
+    height: 65vh;
+  }
+}
+
+@media (min-width: 769px) {
+  .homepage-notice {
+    text-align: center;
+  }
+
+  .notice-actions {
+    justify-content: center;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(40px, 5vw, 60px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .homepage-hero {
+    height: 100vh;
+    max-height: 1200px;
+  }
+
+  .homepage-featured {
+    height: 90vh;
+    max-height: 1100px;
+  }
+
+  .homepage-gallery-section {
+    height: 75vh;
+    max-height: 900px;
+  }
+
+  .featured-content {
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .featured-text-block {
+    max-width: 600px;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY & PRINT STYLES
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-link,
+  .featured-link {
+    transition: none;
+  }
+}
+
+@media print {
+  .navbar-wrapper,
+  .homepage-notice,
+  .homepage-footer {
+    display: none;
+  }
+
+  .homepage-hero,
+  .homepage-featured,
+  .homepage-gallery-section {
+    height: auto;
+    margin-left: 0;
+    transform: none;
+    page-break-inside: avoid;
+  }
+}
