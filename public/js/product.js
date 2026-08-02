@@ -1,26 +1,22 @@
 /**
  * Netsorna Product Page Engine (public/js/product.js)
- * 
- * Key Responsibilities:
- * 1. Query SKU from URL params and load metadata from `/api/products`.
- * 2. Handle direct binary file upload to Cloudflare R2 using presigned URLs (`/api/upload-url`).
- * 3. Enforce the Image Ownership & Copyright Modal state before unlocking actions.
- * 4. Manage dynamic UI state for Buttons A (Available) vs. Buttons B (Unavailable).
- * 5. Handle "Add to Buy List" and direct "Buy Now" checkout redirections.
+ * Handles SKU fetching, gallery swapping, R2 direct upload, ownership gating,
+ * dynamic Buttons A vs B rendering, and Buy List storage integration.
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // Extract SKU from URL params (?sku=NET-PRT-001)
   const urlParams = new URLSearchParams(window.location.search);
-  const currentSku = urlParams.get('sku') || 'NET-CUST-PORTRAIT'; // Default fallback SKU
+  const currentSku = urlParams.get('sku');
 
-  // --- STATE MANAGEMENT ---
+  // Page State
   const state = {
     product: null,
     uploadedFileKey: null,
     uploadedFileName: null,
     termsAccepted: false,
     quantity: 1,
-    isAvailable: true // Controlled by backend availability check
+    isAvailable: true
   };
 
   const container = document.getElementById('productContainer');
@@ -29,15 +25,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   const confirmAgreementBtn = document.getElementById('confirmAgreementBtn');
   const closeAgreementBtn = document.getElementById('closeAgreementBtn');
 
-  // --- 1. FETCH PRODUCT DATA & AVAILABILITY ---
+  if (!currentSku) {
+    show404('No product SKU provided.');
+    return;
+  }
+
+  // --- 1. FETCH PRODUCT DATA & CHECK AVAILABILITY ---
   try {
     const res = await fetch('/api/products');
     if (!res.ok) throw new Error('Failed to fetch catalogue data');
     
     const products = await res.json();
-    state.product = products.find(p => p.sku === currentSku) || products[0];
+    state.product = products.find(p => p.sku === currentSku);
 
-    // Check store limits / availability toggle
+    if (!state.product) {
+      show404(`Product with SKU "${currentSku}" was not found.`);
+      return;
+    }
+
+    // Check store status & capacity limits
     const statusRes = await fetch('/api/status').catch(() => null);
     if (statusRes && statusRes.ok) {
       const status = await statusRes.json();
@@ -52,19 +58,38 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderProductPage();
   } catch (err) {
     console.error('Error initializing product page:', err);
-    if (container) {
-      container.innerHTML = `<div class="error-box"><p>Unable to load product details. Please return to the shop.</p></div>`;
-    }
+    show404('Unable to load product details at this time.');
   }
 
-  // --- 2. RENDER PRODUCT UI ---
+  // Helper: Display 404 error
+  function show404(msg) {
+    if (!container) return;
+    // Remove skeleton class to restore normal container padding
+    container.classList.remove('product-skeleton');
+    container.innerHTML = `
+      <div style="text-align:center; padding: 60px 20px; width:100%;">
+        <h1 style="font-size: 2rem; margin-bottom: 12px;">Product Not Found</h1>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">${msg}</p>
+        <a href="/shop.html" class="btn btn-solid">← Back to Shop</a>
+      </div>
+    `;
+  }
+
+  // --- 2. RENDER PRODUCT PAGE HTML ---
   function renderProductPage() {
     if (!container || !state.product) return;
 
-    const isCustom = state.product.type && state.product.type.startsWith('custom');
-    const images = (state.product.images && state.product.images.length > 0) 
-      ? state.product.images 
-      : [state.product.image || '/images/placeholder.jpg'];
+    // Clear skeleton loader state
+    container.classList.remove('product-skeleton');
+
+    const isCustom = state.product.customType && state.product.customType.startsWith('custom');
+    const isHighValue = state.product.inquiryOnly || state.product.price >= 15000;
+    
+    // Build image paths relative to product folder
+    const folderPath = `/content/products/${getFolderFromSku(state.product.sku)}`;
+    const images = (state.product.images && state.product.images.length > 0)
+      ? state.product.images.map(img => img.startsWith('/') ? img : `${folderPath}/${img}`)
+      : ['/images/placeholder.jpg'];
 
     const heroImage = images[0];
 
@@ -87,11 +112,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         <h1 class="product-header-title">${state.product.title}</h1>
         <div class="product-price-tag">R ${Number(state.product.price).toLocaleString()}</div>
         <p class="product-description">${state.product.description || 'Handcrafted bespoke artwork made with linear relief precision.'}</p>
+        
+        ${state.product.specs ? `
+          <div class="product-specs" style="font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 12px;">
+            <strong>Specifications:</strong> ${state.product.specs}
+          </div>
+        ` : ''}
 
-        <!-- 1.3 Upload Selector (Rendered for custom items) -->
+        <!-- Custom Upload Dropzone -->
         ${isCustom ? `
-          <div class="custom-upload-section">
-            <label style="font-size:0.85rem; font-weight:600; margin-bottom:6px; display:block;">Reference Photo Upload</label>
+          <div class="custom-upload-section" style="margin-top: 10px;">
+            <label style="font-size:0.85rem; font-weight:600; margin-bottom:6px; display:block;">Reference Photo Upload (Required)</label>
             <div class="upload-zone" id="uploadDropzone">
               <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -99,23 +130,25 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <line x1="12" y1="3" x2="12" y2="15"></line>
               </svg>
               <p><strong>Click to upload</strong> or drag & drop image</p>
-              <span style="font-size:0.75rem; color:var(--text-muted);">JPG, PNG or WEBP up to 10MB</span>
+              <span style="font-size:0.75rem; color:var(--text-muted);">JPG, PNG, WEBP or HEIC up to 10MB</span>
             </div>
             <input type="file" id="fileInput" accept="image/*" style="display: none;" />
-            <div id="filePreviewStrip" class="file-preview-strip" style="display: none;"></div>
+            <div id="filePreviewStrip" class="file-preview-strip" style="display: none; margin-top: 8px;"></div>
           </div>
         ` : ''}
 
-        <!-- Quantity Selector -->
-        <div class="quantity-selector">
-          <button type="button" class="qty-btn" id="qtyMinus">-</button>
-          <input type="text" class="qty-input" id="qtyValue" value="1" readonly />
-          <button type="button" class="qty-btn" id="qtyPlus">+</button>
-        </div>
+        <!-- Quantity Selector (Hidden for inquiry-only items) -->
+        ${!isHighValue ? `
+          <div class="quantity-selector" style="margin-top: 10px;">
+            <button type="button" class="qty-btn" id="qtyMinus">-</button>
+            <input type="text" class="qty-input" id="qtyValue" value="1" readonly />
+            <button type="button" class="qty-btn" id="qtyPlus">+</button>
+          </div>
+        ` : ''}
 
-        <!-- 1.4 Image Ownership Widget / Gated Action Controls -->
-        <div class="product-action-wrapper" id="actionControlsArea">
-          ${renderActionButtons()}
+        <!-- Dynamic Action Buttons -->
+        <div class="product-action-wrapper" id="actionControlsArea" style="margin-top: 12px;">
+          ${renderActionButtons(isCustom, isHighValue)}
         </div>
       </div>
     `;
@@ -123,46 +156,68 @@ document.addEventListener('DOMContentLoaded', async () => {
     bindInteractiveEvents(isCustom);
   }
 
-  // --- 3. DYNAMIC BUTTONS (A vs B) RENDERER ---
-  function renderActionButtons() {
-    const isCustom = state.product.type && state.product.type.startsWith('custom');
-    
-    // Gating check: Custom items require file upload + terms agreement
+  // Derive folder name based on SKU mapping
+  function getFolderFromSku(sku) {
+    const map = {
+      'NET-PRT-001': 'custom-portrait',
+      'NET-OBJ-002': 'custom-object',
+      'NET-LUX-003': 'luxury-art-piece',
+      'NET-RDY-004': 'ready-made-item'
+    };
+    return map[sku] || 'custom-portrait';
+  }
+
+  // --- 3. DYNAMIC BUTTONS (A vs B vs Inquiry) RENDERER ---
+  function renderActionButtons(isCustom, isHighValue) {
+    if (isHighValue) {
+      return `
+        <div class="buttons-group-inquiry" style="display:flex; flex-direction:column; gap:10px;">
+          <a href="https://wa.me/27XXXXXXXXX?text=${encodeURIComponent('Hi Netsorna, I am interested in inquiring about ' + state.product.title + ' (' + state.product.sku + ')')}" target="_blank" class="btn btn-solid btn-lg" style="background:#25D366; color:#fff; border:none;">
+            WhatsApp Private Consultation
+          </a>
+          <a href="/customer-details.html?sku=${state.product.sku}&type=inquiry" class="btn btn-outline btn-lg">
+            Email Inquiry
+          </a>
+        </div>
+      `;
+    }
+
+    // Custom items require file upload + copyright terms
     const isLocked = isCustom && (!state.uploadedFileKey || !state.termsAccepted);
 
     if (state.isAvailable) {
-      // 1.1 Buttons A (Available State)
+      // Buttons A (Available State)
       return `
-        <div class="buttons-group-a" style="display:flex; flex-direction:column; gap:10px; margin-top:12px;">
+        <div class="buttons-group-a" style="display:flex; flex-direction:column; gap:10px;">
           <button type="button" class="btn btn-solid btn-lg" id="btnBuyNow" ${isLocked ? 'disabled' : ''}>
-            ${isLocked ? 'Upload Reference Image to Unlock' : '4. Buy Now'}
+            ${isLocked ? 'Upload Image & Confirm Terms to Unlock' : 'Buy Now'}
           </button>
-          <button type="button" class="btn btn-outline" id="btnAddBuyList" ${isLocked ? 'disabled' : ''}>
-            1.1.1 Add To Buy List
+          <button type="button" class="btn btn-outline btn-lg" id="btnAddBuyList" ${isLocked ? 'disabled' : ''}>
+            Add to Buy List
           </button>
         </div>
       `;
     } else {
-      // 1.2 Buttons B (Unavailable State)
+      // Buttons B (Unavailable State)
       return `
-        <div class="buttons-group-b" style="display:flex; flex-direction:column; gap:10px; margin-top:12px;">
+        <div class="buttons-group-b" style="display:flex; flex-direction:column; gap:10px;">
           <button type="button" class="btn btn-subtle btn-lg" id="btnGetNotified">
-            1.2.1 Get Notified
+            Get Notified When Available
           </button>
-          <button type="button" class="btn btn-outline" id="btnAddReminder">
-            1.2.2 Add To Reminder List
+          <button type="button" class="btn btn-outline btn-lg" id="btnAddReminder">
+            Add to Reminder List
           </button>
         </div>
       `;
     }
   }
 
-  // --- 4. EVENT BINDINGS & BINARY UPLOAD EXECUTION ---
+  // --- 4. EVENT BINDINGS & UPLOAD PIPELINE ---
   function bindInteractiveEvents(isCustom) {
-    // Gallery Thumbnails
+    // Gallery Swap
     const thumbs = container.querySelectorAll('.thumb-img');
-    const mainImg = container.getElementById('mainProductImg');
-    const counter = container.getElementById('imageCounter');
+    const mainImg = container.querySelector('#mainProductImg');
+    const counter = container.querySelector('#imageCounter');
 
     thumbs.forEach(thumb => {
       thumb.addEventListener('click', () => {
@@ -191,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
 
-    // Custom File Dropzone & Binary Upload
+    // Custom File Dropzone
     if (isCustom) {
       const dropzone = container.querySelector('#uploadDropzone');
       const fileInput = container.querySelector('#fileInput');
@@ -226,10 +281,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     bindActionButtons();
   }
 
-  // --- 5. R2 BINARY UPLOAD PIPELINE ---
+  // --- 5. R2 UPLOAD EXECUTION ---
   async function handleFileUpload(file) {
     if (!file.type.startsWith('image/')) {
-      alert('Please upload a valid image file (JPG, PNG, or WEBP).');
+      alert('Please upload a valid image file (JPG, PNG, WEBP, or HEIC).');
       return;
     }
 
@@ -240,46 +295,46 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-      // Step A: Request presigned R2 URL from Worker backend
+      // Step 1: Request upload endpoint from Worker
       const res = await fetch('/api/upload-url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fileName: file.name,
-          contentType: file.type,
-          fileSize: file.size
+          fileType: file.type
         })
       });
 
       if (!res.ok) throw new Error('Failed to generate upload authorization.');
-      const { uploadUrl, fileKey } = await res.json();
+      const { fileKey, uploadEndpoint } = await res.json();
 
-      // Step B: Direct binary upload to R2 Bucket
-      const uploadRes = await fetch(uploadUrl, {
+      // Step 2: Binary transfer to R2
+      const uploadRes = await fetch(uploadEndpoint, {
         method: 'PUT',
         headers: { 'Content-Type': file.type },
         body: file
       });
 
-      if (!uploadRes.ok) throw new Error('Direct R2 file upload failed.');
+      if (!uploadRes.ok) throw new Error('Direct R2 binary upload failed.');
 
       state.uploadedFileKey = fileKey;
       state.uploadedFileName = file.name;
 
       if (previewStrip) {
         previewStrip.innerHTML = `
-          <span>Ready: <strong>${file.name}</strong></span>
+          <span>Uploaded: <strong>${file.name}</strong></span>
           <button type="button" class="remove-file-btn" id="removeFileBtn">Remove</button>
         `;
-        document.getElementById('removeFileBtn').addEventListener('click', resetFileUpload);
+        const removeBtn = document.getElementById('removeFileBtn');
+        if (removeBtn) removeBtn.addEventListener('click', resetFileUpload);
       }
 
-      // Step C: Trigger 1.4 Copyright Ownership Modal
+      // Step 3: Open Copyright Modal
       openCopyrightModal();
 
     } catch (err) {
       console.error('Upload Error:', err);
-      alert('Upload failed. Please check your network connection and try again.');
+      alert('Upload failed. Please try again.');
       resetFileUpload();
     }
   }
@@ -299,12 +354,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateActionControls();
   }
 
-  // --- 6. COPYRIGHT MODAL GATING LOGIC ---
+  // --- 6. COPYRIGHT MODAL STATE ---
   function openCopyrightModal() {
     if (modal) {
       if (agreeCheckbox) agreeCheckbox.checked = state.termsAccepted;
       if (confirmAgreementBtn) confirmAgreementBtn.disabled = !state.termsAccepted;
-      modal.showModal();
+      if (typeof modal.showModal === 'function') {
+        modal.showModal();
+      } else {
+        modal.setAttribute('open', 'true');
+      }
     }
   }
 
@@ -317,17 +376,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (confirmAgreementBtn) {
     confirmAgreementBtn.addEventListener('click', () => {
       state.termsAccepted = true;
-      modal.close();
+      if (typeof modal.close === 'function') modal.close();
+      else modal.removeAttribute('open');
+      
       updateActionControls();
       if (typeof showToast === 'function') {
-        showToast('Image uploaded & terms confirmed!');
+        showToast('Photo uploaded & terms confirmed!');
       }
     });
   }
 
   if (closeAgreementBtn) {
     closeAgreementBtn.addEventListener('click', () => {
-      modal.close();
+      if (typeof modal.close === 'function') modal.close();
+      else modal.removeAttribute('open');
+      
       if (!state.termsAccepted) {
         resetFileUpload();
       }
@@ -336,15 +399,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function updateActionControls() {
     const controlsArea = container.querySelector('#actionControlsArea');
-    if (controlsArea) {
-      controlsArea.innerHTML = renderActionButtons();
+    if (controlsArea && state.product) {
+      const isCustom = state.product.customType && state.product.customType.startsWith('custom');
+      const isHighValue = state.product.inquiryOnly || state.product.price >= 15000;
+      controlsArea.innerHTML = renderActionButtons(isCustom, isHighValue);
       bindActionButtons();
     }
   }
 
-  // --- 7. ACTION BUTTON LISTENERS (1.1 & 1.2) ---
+  // --- 7. ACTION BUTTON LISTENERS ---
   function bindActionButtons() {
-    // 1.1.1 Add to Buy List
     const btnAddBuyList = container.querySelector('#btnAddBuyList');
     if (btnAddBuyList) {
       btnAddBuyList.addEventListener('click', () => {
@@ -355,17 +419,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
 
-    // 4. Buy Now
     const btnBuyNow = container.querySelector('#btnBuyNow');
     if (btnBuyNow) {
       btnBuyNow.addEventListener('click', () => {
         addToBuyList();
-        // Redirect directly to 4.1 Customer Details capture page
         window.location.href = `/customer-details.html?sku=${state.product.sku}&direct=true`;
       });
     }
 
-    // 1.2.1 Get Notified (When unavailable)
     const btnGetNotified = container.querySelector('#btnGetNotified');
     if (btnGetNotified) {
       btnGetNotified.addEventListener('click', () => {
@@ -373,7 +434,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
 
-    // 1.2.2 Add to Reminder List (When unavailable)
     const btnAddReminder = container.querySelector('#btnAddReminder');
     if (btnAddReminder) {
       btnAddReminder.addEventListener('click', () => {
@@ -382,7 +442,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // --- 8. LOCAL BUY LIST STORAGE MANAGER ---
+  // --- 8. LOCAL STORAGE MANAGEMENT ---
   function addToBuyList() {
     try {
       const existingList = JSON.parse(localStorage.getItem('netsorna_buylist') || '[]');
@@ -406,7 +466,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       localStorage.setItem('netsorna_buylist', JSON.stringify(existingList));
 
-      // Trigger global header badge counter update if main.js is loaded
       if (typeof updateCartBadge === 'function') {
         updateCartBadge();
       }
