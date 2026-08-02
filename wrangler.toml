@@ -23,8 +23,4 @@ format = "service-worker"
 
 [[routes]]
 pattern = "*"
-zone_name = "netsorna.website"
-
-# Static assets configuration
-[site]
-bucket = "public"
+zone_name = ""
