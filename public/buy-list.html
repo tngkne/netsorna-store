@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Your Selected Artworks — Netsorna</title>
+
+  <!-- Typography & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/shop.css" />
+</head>
+<body>
+
+  <!-- FLOATING GLASS HEADER NAVBAR -->
+  <div class="navbar-wrapper">
+    <header class="navbar" id="navbar">
+      <div class="navbar-bar">
+        <a href="/index.html" class="brand-logo" aria-label="Netsorna Home">
+          <span class="logo-text">NETSORNA.</span>
+        </a>
+        <a href="/shop.html" class="btn btn-subtle btn-sm">← Back to Shop</a>
+      </div>
+    </header>
+  </div>
+
+  <main class="buy-list-wrapper" style="margin-top: 100px; padding: 20px;">
+    <h1 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 8px;">Review Buy List</h1>
+    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 24px;">
+      Confirm your selected commissions and artwork pieces before proceeding.
+    </p>
+
+    <div id="buyListContainer" class="buy-list-items-box">
+      <!-- Injected by public/js/buy-list.js -->
+      <div class="placeholder-box">Loading your saved list...</div>
+    </div>
+
+    <div class="buy-list-summary" id="buyListSummary" style="display: none; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+      <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; margin-bottom: 20px;">
+        <span>Estimated Total</span>
+        <span id="buyListTotal">R 0</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- 2.1 MESSAGE TO BUY BUTTON -->
+        <button type="button" class="btn btn-solid btn-lg" id="btnMessageToBuy" style="background: #25D366; color: #fff; border: none;">
+          2.1 Message to Buy (WhatsApp)
+        </button>
+
+        <a href="/customer-details.html" class="btn btn-outline btn-lg">
+          Proceed to Direct Online Payment
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/buy-list.js"></script>
+</body>
+</html>
