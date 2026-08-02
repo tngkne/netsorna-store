@@ -1,13 +1,15 @@
 /**
  * public/js/main.js
  * Global Application Execution: Handles GA4 initialization, 
- * expanding header Buy List drawer widget, cart badges, and toast notifications.
+ * expanding header Buy List drawer widget, cart badges, toast notifications,
+ * and dynamic homepage content loading.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initGoogleAnalytics();
   initHeaderDrawer();
   updateCartBadge();
+  initHomePageContent(); // Load dynamic CMS content for the homepage if present
 });
 
 // --- 1. GA4 TRACKING INITIALIZATION ---
@@ -90,7 +92,51 @@ function renderHeaderWidgetPreview() {
   }
 }
 
-// --- 3. BADGE COUNTER UPDATER ---
+// --- 3. DYNAMIC HOMEPAGE CMS LOADER ---
+async function initHomePageContent() {
+  const heroTitle = document.getElementById('heroTitle');
+  if (!heroTitle) return; // Exit if we are not on the homepage
+
+  try {
+    const response = await fetch('/content/pages/home.json');
+    if (!response.ok) return;
+    const data = await response.json();
+
+    // Populate Hero Section
+    if (data.hero) {
+      if (heroTitle && data.hero.title) heroTitle.textContent = data.hero.title;
+      const heroImage = document.getElementById('heroImage');
+      if (heroImage && data.hero.image) heroImage.src = data.hero.image;
+    }
+
+    // Populate Studio Bio Section
+    if (data.bio) {
+      const bioText = document.getElementById('bioText');
+      if (bioText && data.bio.heading) bioText.textContent = data.bio.heading;
+      const bioMediaImage = document.getElementById('bioMediaImage');
+      if (bioMediaImage && data.bio.mediaImage) bioMediaImage.src = data.bio.mediaImage;
+    }
+
+    // Populate Feature Showcase Section
+    if (data.feature) {
+      const featureTitle = document.getElementById('featureTitle');
+      if (featureTitle && data.feature.title) featureTitle.textContent = data.feature.title;
+      const featureImage = document.getElementById('featureImage');
+      if (featureImage && data.feature.image) featureImage.src = data.feature.image;
+      const featureDescription = document.getElementById('featureDescription');
+      if (featureDescription && data.feature.description) featureDescription.textContent = data.feature.description;
+      const featureLink = document.getElementById('featureLink');
+      if (featureLink) {
+        if (data.feature.linkText) featureLink.textContent = data.feature.linkText;
+        if (data.feature.linkUrl) featureLink.href = data.feature.linkUrl;
+      }
+    }
+  } catch (err) {
+    console.warn('CMS content sync offline or missing, falling back to static markup.', err);
+  }
+}
+
+// --- 4. BADGE COUNTER UPDATER ---
 function updateCartBadge() {
   const badge = document.getElementById('buyListBadge') || document.getElementById('cartBadge');
   if (!badge) return;
@@ -103,7 +149,7 @@ function updateCartBadge() {
   }
 }
 
-// --- 4. TOAST NOTIFICATION HELPER ---
+// --- 5. TOAST NOTIFICATION HELPER ---
 function showToast(message) {
   let toastBox = document.getElementById('netsorna-toast');
   if (!toastBox) {
