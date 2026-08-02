@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Artwork Details — Netsorna</title>
+
+  <!-- SEO & Open Graph Dynamic Tags -->
+  <link rel="canonical" href="https://netsorna.website/product.html" />
+  <meta property="og:type" content="product" />
+  <meta property="og:title" content="Artwork Details — Netsorna" />
+  <meta property="og:description" content="Curated fine art, relief sculptures, and custom interior pieces." />
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/shop.css" />
+</head>
+<body>
+
+  <!-- 3.0 FLOATING EXPANDABLE GLASS HEADER WITH BUY LIST DRAWER WIDGET -->
+  <div class="navbar-wrapper">
+    <header class="navbar" id="navbar">
+      <!-- Top Action Bar -->
+      <div class="navbar-bar">
+        <button class="menu-btn" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="navDrawer" id="menuToggle">
+          <svg class="icon-hamburger" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <a href="/index.html" class="brand-logo" aria-label="Netsorna Home">
+          <img 
+            src="/images/icons/horizontal_logo.svg" 
+            alt="Netsorna Logo" 
+            class="logo-img" 
+            width="160" 
+            height="40" 
+            onerror="this.outerHTML='<span class=\'logo-text\'>NETSORNA.</span>'" 
+          />
+        </a>
+
+        <!-- 3.0 Header Buy List Icon Button (Expands Header Drawer Widget) -->
+        <button class="cart-btn" aria-label="View Buy List Selection" id="buyListHeaderBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+          <span class="cart-badge" id="buyListBadge">0</span>
+        </button>
+      </div>
+
+      <!-- Integrated Navigation & 3.0 Buy List Drawer Container -->
+      <nav class="nav-drawer" id="navDrawer" aria-hidden="true">
+        <ul class="nav-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/shop.html">Shop Artworks</a></li>
+          <li><a href="/buy-list.html">Review Buy List</a></li>
+          <li><a href="/faqs.html">FAQs</a></li>
+        </ul>
+
+        <!-- 3.0 Header Buy List Drawer Widget Content -->
+        <div class="header-buy-list-widget" id="headerBuyListWidget">
+          <div class="widget-header">
+            <h4>Your Selected Items</h4>
+          </div>
+          <div class="widget-items-preview" id="widgetItemsPreview">
+            <p class="empty-msg">Your Buy List is currently empty.</p>
+          </div>
+          <!-- 3.1 View More Button -->
+          <a href="/buy-list.html" class="btn btn-solid btn-sm widget-view-more-btn" id="widgetViewMoreBtn">
+            3.1 View More
+          </a>
+        </div>
+      </nav>
+    </header>
+  </div>
+
+  <!-- DYNAMIC PRODUCT CONTAINER & STAGING AREA -->
+  <main class="product-page-main full-bleed-main">
+    <div class="product-container" id="productContainer">
+      
+      <!-- Skeleton Placeholder State (Replaced dynamically by public/js/product.js) -->
+      <div class="product-skeleton">
+        <div class="skeleton-image"></div>
+        <div class="skeleton-text"></div>
+      </div>
+
+      <!-- DYNAMIC CONTENT STRUCTURE INJECTED BY JS:
+        <div class="product-gallery">
+          <div class="main-image-wrapper">
+            <img id="mainImage" src="..." alt="..." />
+            <span class="image-counter-badge" id="imageCounter">1 / 1</span>
+          </div>
+          <div class="thumbnail-row" id="thumbnailRow"></div>
+        </div>
+
+        <div class="product-details-box">
+          <h1 class="product-header-title">...</h1>
+          <div class="product-price-tag">...</div>
+          <p class="product-description">...</p>
+
+          <!-- 1.3 UPLOAD BUTTON DROPZONE (Visible for custom-1 & custom-2 types) -->
+          <div class="upload-zone" id="uploadDropzone">
+            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <p><strong>1.3 Upload Selector:</strong> Drag & drop reference image here, or click to browse</p>
+            <input type="file" id="customFileInput" accept="image/*" hidden />
+          </div>
+
+          <div class="file-preview-strip" id="filePreviewStrip" style="display: none;">
+            <span id="uploadedFileName">image.jpg</span>
+            <button type="button" class="remove-file-btn" id="removeFileBtn">Remove</button>
+          </div>
+
+          <!-- 1.4 IMAGE OWNERSHIP WIDGET TRIGGER -->
+          <div class="ownership-widget-box" id="ownershipWidgetBox">
+            <button type="button" class="btn btn-outline" id="openAgreementModalBtn">
+              1.4 Image Ownership & Copyright Terms
+            </button>
+            <span class="ownership-status-badge" id="ownershipStatusBadge">Pending Approval</span>
+          </div>
+
+          <!-- ACTION BUTTON CONTROLLER CONTAINERS -->
+          
+          <!-- 1.1 BUTTONS A (Available / In Stock) -->
+          <div class="buttons-group buttons-a" id="buttonsAGroup" style="display: flex;">
+            <!-- 1.1.1 Add To Buy List -->
+            <button type="button" class="btn btn-subtle btn-lg" id="addToBuyListBtn" disabled>
+              1.1.1 Add To Buy List
+            </button>
+            
+            <!-- 1.1.2 Buy Now -->
+            <button type="button" class="btn btn-solid btn-lg" id="buyNowBtn" disabled>
+              1.1.2 Buy Now
+            </button>
+          </div>
+
+          <!-- 1.2 BUTTONS B (Unavailable / Sold Out / Weekly Cap Reached) -->
+          <div class="buttons-group buttons-b" id="buttonsBGroup" style="display: none;">
+            <!-- 1.2.1 Get Notified -->
+            <button type="button" class="btn btn-outline btn-lg" id="getNotifiedBtn">
+              1.2.1 Get Notified
+            </button>
+            
+            <!-- 1.2.2 Add To Reminder List -->
+            <button type="button" class="btn btn-subtle btn-lg" id="addReminderBtn">
+              1.2.2 Add To Reminder List
+            </button>
+          </div>
+        </div>
+      -->
+
+    </div>
+  </main>
+
+  <!-- 1.4 IMAGE OWNERSHIP WIDGET & COPYRIGHT AGREEMENT MODAL -->
+  <dialog id="customAgreementModal" class="glass-modal">
+    <div class="modal-content">
+      <h3 style="font-size: 1.1rem; font-weight: 600;">Custom Order & Ownership Agreement</h3>
+      <div class="agreement-text">
+        <p>By submitting your reference photograph for custom artwork rendering, you acknowledge and agree that:</p>
+        <ul>
+          <li>You hold full ownership rights, copyright clearance, or explicit permission for the uploaded photograph.</li>
+          <li>The image contains 1 to 5 clear facial subjects or distinct objects free from severe motion blur.</li>
+          <li>Bespoke studio production requires a 14–20 day fulfillment window prior to courier dispatch.</li>
+        </ul>
+      </div>
+
+      <label class="checkbox-container">
+        <input type="checkbox" id="agreeTermsCheckbox" />
+        <span>I confirm image ownership and accept the custom processing turnaround terms.</span>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" id="closeAgreementBtn" class="btn btn-subtle">Cancel</button>
+        <button type="button" id="confirmAgreementBtn" class="btn btn-solid" disabled>Confirm & Unlock</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 1.2.1 GET NOTIFIED MODAL OVERLAY -->
+  <dialog id="getNotifiedModal" class="glass-modal">
+    <div class="modal-content">
+      <h3 style="font-size: 1.1rem; font-weight: 600;">Weekly Capacity Limit Reached</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        To preserve artisanal production quality, weekly order slots are capped. Leave your email to receive priority access when new slots open.
+      </p>
+      <input type="email" id="notifyEmailInput" placeholder="Enter your email address" class="form-input" />
+      <div class="modal-actions">
+        <button type="button" id="closeNotifyModalBtn" class="btn btn-subtle">Cancel</button>
+        <button type="button" id="submitNotifyModalBtn" class="btn btn-solid">Submit Email</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">netsorna.</span>
+        <p>Curated fine art, relief sculptures, and custom interior pieces.</p>
+      </div>
+      <div class="footer-links-group">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/shop.html">Catalogue</a></li>
+          <li><a href="/buy-list.html">Buy List</a></li>
+          <li><a href="/faqs.html">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-links-group">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Netsorna. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Toast Notification System -->
+  <div id="netsorna-toast"></div>
+
+  <!-- Application Execution Scripts -->
+  <script src="/js/main.js"></script>
+  <script src="/js/limits-guard.js"></script>
+  <script src="/js/product.js"></script>
+</body>
+</html>
