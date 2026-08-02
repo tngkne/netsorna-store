@@ -25,6 +25,7 @@
   <!-- Modular Stylesheets -->
   <link rel="stylesheet" href="/css/main.css" />
   <link rel="stylesheet" href="/css/shop.css" />
+  <link rel="stylesheet" href="/css/homepage.css" />
 </head>
 <body style="background-color: #ffffff; color: #111111; margin: 0;">
 
@@ -91,124 +92,179 @@
   </div>
 
   <!-- MAIN HOMEPAGE CONTENT -->
-  <main style="padding-top: 0; width: 100%;">
+  <main style="padding-top: 0; width: 100%; margin: 0;">
     
-    <!-- 1. FULL-BLEED HERO BANNER WITH OVERLAY TITLE -->
-    <section class="hero-section" style="position: relative; width: 100%; min-height: 90vh; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-      <img 
-        id="heroImage"
-        src="/content/products/ready-made-item/main.jpg" 
-        alt="Tin (Opened)" 
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;" 
-        onerror="this.src='/images/placeholder.jpg'"
-      />
-      <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.15); z-index: 2;"></div>
-      <div style="position: relative; z-index: 3; text-align: center; color: #ffffff; padding: 0 20px;">
-        <h1 id="heroTitle" style="font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; letter-spacing: -0.5px; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">
-          Tin (Opened)
-        </h1>
-      </div>
-    </section>
-
-    <!-- 2. STUDIO / ARTIST BIO BLOCK WITH EMBEDDED MEDIA -->
-    <section class="bio-section" style="max-width: 760px; margin: 0 auto; padding: 80px 24px; text-align: center;">
-      <p id="bioText" style="font-size: clamp(1.1rem, 2vw, 1.35rem); line-height: 1.6; font-weight: 600; color: #111111; margin-bottom: 40px;">
-        Bella McGoldrick is an artist based in Byron Bay, Australia primarily working with pencil on paper. Our studio, Looks Pretty Good, creates limited-edition prints, books, sculpture, and furniture.
-      </p>
-      
-      <div class="bio-media" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #f4f4f4; overflow: hidden; border-radius: 2px;">
+    <!-- 1. FULL-BLEED HERO SECTION WITH OVERLAY TEXT -->
+    <section class="homepage-hero">
+      <div class="hero-image-wrapper">
         <img 
-          id="bioMediaImage"
-          src="/images/products/object-hero.jpg" 
-          alt="Studio View" 
-          style="width: 100%; height: 100%; object-fit: cover;" 
-          onerror="this.src='/images/placeholder.jpg'"
+          id="heroImage"
+          src="/content/products/custom-portrait/hero.jpg" 
+          alt="Tin (Opened) — Netsorna" 
+          class="hero-image"
+          onerror="this.src='https://via.placeholder.com/1920x1200/dedad3/000000?text=Hero+Artwork'"
         />
       </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Tin (Opened)</h1>
+      </div>
     </section>
 
-    <!-- 3. FULL-WIDTH FEATURED ARTWORK BANNER CARD -->
-    <section class="featured-card-section" style="position: relative; width: 100%; min-height: 85vh; overflow: hidden; display: flex; align-items: flex-end;">
-      <img 
-        id="featureImage"
-        src="/content/products/luxury-art-piece/main.jpg" 
-        alt="Visa Issues" 
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;" 
-        onerror="this.src='/images/placeholder.jpg'"
-      />
-      
-      <div style="position: relative; z-index: 3; width: 100%; padding: 40px clamp(20px, 5vw, 60px); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%); color: #ffffff;">
-        <div style="max-width: 500px;">
-          <h2 id="featureTitle" style="font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; margin: 0 0 16px 0; line-height: 1.1;">
-            Visa Issues
-          </h2>
-        </div>
+    <!-- 2. ARTIST BIO & STUDIO DESCRIPTION SECTION -->
+    <section class="homepage-bio">
+      <div class="bio-container">
+        <p class="bio-text">
+          Bella McGoldrick is an artist based in Byron Bay, Australia primarily working with pencil on paper. Our studio, Looks Pretty Good, creates limited-edition prints, books, sculpture, and furniture.
+        </p>
         
-        <div style="max-width: 420px;">
-          <p id="featureDescription" style="font-size: 0.95rem; line-height: 1.5; opacity: 0.9; margin: 0 0 16px 0;">
-            From deported and banned in Hawaii for the United States, turned to in the braver, standard in the mountain and banned standard 5 layers: Turned to my favors.
-          </p>
-          <a id="featureLink" href="/product.html?sku=NET-PRT-001" style="color: #ffffff; text-decoration: underline; font-weight: 600; font-size: 0.9rem;">
-            Read more
-          </a>
+        <div class="bio-image-wrapper">
+          <img 
+            id="bioImage"
+            src="/content/products/custom-object/hero.jpg" 
+            alt="Artist Studio Documentation" 
+            class="bio-image"
+            onerror="this.src='https://via.placeholder.com/800x500/f5f3ef/000000?text=Studio+View'"
+          />
         </div>
       </div>
     </section>
 
-    <!-- Bespoke Production Timeline Notice -->
-    <section style="padding: 32px 24px; background: #f9f9f9; text-align: center; border-top: 1px solid #eeeeee;">
-      <h3 style="font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px 0;">
-        Bespoke Production Timeline
-      </h3>
-      <p style="font-size: 0.88rem; color: #666666; margin: 0; line-height: 1.5; max-width: 600px; margin: 0 auto;">
-        Each custom order requires 14–20 studio turnaround days prior to express courier dispatch to maintain high artisanal standards and structural finish.
-      </p>
+    <!-- 3. FEATURED ARTWORK FULL-BLEED BANNER SECTION -->
+    <section class="homepage-featured">
+      <div class="featured-image-wrapper">
+        <img 
+          id="featureImage"
+          src="/content/products/luxury-art-piece/main.jpg" 
+          alt="Visa Issues — Featured Artwork" 
+          class="featured-image"
+          onerror="this.src='https://via.placeholder.com/1920x1400/e8e6e0/000000?text=Featured+Artwork'"
+        />
+      </div>
+      <div class="featured-overlay"></div>
+      <div class="featured-content">
+        <div class="featured-text-block">
+          <h2 class="featured-title">Visa Issues</h2>
+          <p class="featured-description">
+            From the limited-edition art book series, exploring themes of migration, belonging, and contemporary displacement narratives through visual documentation and studio research.
+          </p>
+          <a href="/shop.html" class="featured-link">Explore Collection →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. EDITORIAL IMAGE GALLERY SECTION 1 -->
+    <section class="homepage-gallery-section">
+      <div class="gallery-image-wrapper">
+        <img 
+          src="/images/gallery/tin-opened.jpg" 
+          alt="Tin (Opened) Detail" 
+          class="gallery-image"
+          onerror="this.src='https://via.placeholder.com/1920x1080/e8e6e0/000000?text=Gallery+1'"
+        />
+      </div>
+      <div class="gallery-caption-overlay">
+        <h3 class="gallery-title">Studio Process</h3>
+        <p class="gallery-subtitle">Handcrafted relief sculptures begin with meticulous material selection and structural planning</p>
+      </div>
+    </section>
+
+    <!-- 5. EDITORIAL IMAGE GALLERY SECTION 2 -->
+    <section class="homepage-gallery-section">
+      <div class="gallery-image-wrapper">
+        <img 
+          src="/images/gallery/studio-documentation.jpg" 
+          alt="Studio Documentation" 
+          class="gallery-image"
+          onerror="this.src='https://via.placeholder.com/1920x1080/f5f3ef/000000?text=Gallery+2'"
+        />
+      </div>
+      <div class="gallery-caption-overlay">
+        <h3 class="gallery-title">Looks Pretty Good Studio</h3>
+        <p class="gallery-subtitle">Located in Byron Bay, Australia — where all Netsorna limited editions are handmade</p>
+      </div>
+    </section>
+
+    <!-- 6. EDITORIAL IMAGE GALLERY SECTION 3 -->
+    <section class="homepage-gallery-section">
+      <div class="gallery-image-wrapper">
+        <img 
+          src="/images/gallery/visa-issues-detail.jpg" 
+          alt="Visa Issues Book Detail" 
+          class="gallery-image"
+          onerror="this.src='https://via.placeholder.com/1920x1080/dedad3/000000?text=Gallery+3'"
+        />
+      </div>
+      <div class="gallery-caption-overlay">
+        <h3 class="gallery-title">Visa Issues</h3>
+        <p class="gallery-subtitle">Limited-edition artist book exploring contemporary themes of displacement and belonging</p>
+      </div>
+    </section>
+
+    <!-- 7. PRODUCTION TIMELINE & NOTICE SECTION -->
+    <section class="homepage-notice">
+      <div class="notice-container">
+        <h3 class="notice-title">Bespoke Production Timeline</h3>
+        <p class="notice-text">
+          Each custom order requires 14–20 studio turnaround days prior to express courier dispatch to maintain high artisanal standards and structural finish. Delivery timelines automatically calculated and confirmed at checkout.
+        </p>
+        <div class="notice-actions">
+          <a href="/shop.html" class="btn btn-solid btn-lg">Browse Collection</a>
+          <a href="/buy-list.html" class="btn btn-outline btn-lg">View Buy List</a>
+        </div>
+      </div>
     </section>
 
   </main>
 
   <!-- DARK MINIMALIST FOOTER -->
-  <footer class="site-footer" style="background: #000000; color: #ffffff; padding: 60px 24px 30px;">
-    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; padding-bottom: 40px; border-bottom: 1px solid #222222;">
+  <footer class="homepage-footer">
+    <div class="footer-content">
       
       <!-- Studio Intro Column -->
-      <div>
-        <p style="font-size: 0.85rem; line-height: 1.6; color: #a1a1a1; margin: 0 0 20px 0;">
+      <div class="footer-column">
+        <p class="footer-studio-bio">
           Original artwork, editions, and uncommon goods. Made in Byron Bay, Australia in the studio of Bella McGoldrick and Tyler Rossi.
         </p>
-        <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; color: #ffffff;">LOOKS PRETTY GOOD</span>
+        <span class="footer-studio-name">LOOKS PRETTY GOOD</span>
       </div>
 
-      <!-- Social / Contact Links Column -->
-      <div>
-        <h4 style="font-size: 0.85rem; font-weight: 600; margin: 0 0 16px 0; color: #ffffff;">Instagram</h4>
-        <p style="margin: 0 0 16px 0;"><a href="https://instagram.com" target="_blank" style="color: #a1a1a1; text-decoration: none; font-size: 0.85rem;">@looksprettygood &rarr;</a></p>
+      <!-- Social & Contact Links Column -->
+      <div class="footer-column">
+        <div class="footer-link-group">
+          <h4 class="footer-link-title">Instagram</h4>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-link">@looksprettygood →</a>
+        </div>
         
-        <h4 style="font-size: 0.85rem; font-weight: 600; margin: 0 0 16px 0; color: #ffffff;">YouTube</h4>
-        <p style="margin: 0 0 16px 0;"><a href="https://youtube.com" target="_blank" style="color: #a1a1a1; text-decoration: none; font-size: 0.85rem;">@looksprettygood &rarr;</a></p>
+        <div class="footer-link-group">
+          <h4 class="footer-link-title">YouTube</h4>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="footer-link">@looksprettygood →</a>
+        </div>
 
-        <h4 style="font-size: 0.85rem; font-weight: 600; margin: 0 0 16px 0; color: #ffffff;">Email</h4>
-        <p style="margin: 0;"><a href="mailto:hi@looksprettygood.com" style="color: #a1a1a1; text-decoration: none; font-size: 0.85rem;">hi@looksprettygood.com &rarr;</a></p>
+        <div class="footer-link-group">
+          <h4 class="footer-link-title">Email</h4>
+          <a href="mailto:hi@looksprettygood.com" class="footer-link">hi@looksprettygood.com →</a>
+        </div>
       </div>
 
       <!-- Navigation Links Column -->
-      <div>
-        <h4 style="font-size: 0.85rem; font-weight: 600; margin: 0 0 16px 0; color: #ffffff;">Links</h4>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem;">
-          <li><a href="/shop.html" style="color: #a1a1a1; text-decoration: none;">Shop</a></li>
-          <li><a href="/archive.html" style="color: #a1a1a1; text-decoration: none;">Archive</a></li>
-          <li><a href="/shop.html" style="color: #a1a1a1; text-decoration: none;">Looks Pretty Good</a></li>
-          <li><a href="/faqs.html" style="color: #a1a1a1; text-decoration: none;">Framing</a></li>
-          <li><a href="/faqs.html" style="color: #a1a1a1; text-decoration: none;">Press</a></li>
-          <li><a href="/faqs.html" style="color: #a1a1a1; text-decoration: none;">Shipping & Returns</a></li>
-          <li><a href="/faqs.html" style="color: #a1a1a1; text-decoration: none;">Contact</a></li>
+      <div class="footer-column">
+        <h4 class="footer-link-title">Links</h4>
+        <ul class="footer-nav-list">
+          <li><a href="/shop.html">Shop</a></li>
+          <li><a href="/archive.html">Archive</a></li>
+          <li><a href="/shop.html">Looks Pretty Good</a></li>
+          <li><a href="/faqs.html">Framing</a></li>
+          <li><a href="/faqs.html">Press</a></li>
+          <li><a href="/faqs.html">Shipping & Returns</a></li>
+          <li><a href="/faqs.html">Contact</a></li>
         </ul>
       </div>
 
     </div>
 
     <!-- Copyright Bar -->
-    <div style="max-width: 1200px; margin: 0 auto; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #666666;">
+    <div class="footer-bottom">
       <span>&copy; 2026 Netsorna. All rights reserved.</span>
     </div>
   </footer>
