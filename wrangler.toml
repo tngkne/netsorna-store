@@ -1,0 +1,6 @@
+name = "netsorna-website"
+main = "src/index.js" # Or your worker entrypoint if you have one
+
+# Map your static HTML/CSS/JS directory
+[assets]
+directory = "./public"
