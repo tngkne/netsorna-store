@@ -1,21 +1,11 @@
-name = "netsorna-store"
-pages_build_output_dir = "public"
-
-# Cloudflare KV Storage Bindings
 [[kv_namespaces]]
 binding = "ORDERS_KV"
-id = "a1b2c3d4e5f67890123456789abcdef0"  # <--- Replace with copied ORDERS_KV ID[span_9](start_span)[span_9](end_span)
+id = "PASTE_ORDERS_KV_NAMESPACE_ID_HERE[span_3](start_span)"[span_3](end_span)
 
 [[kv_namespaces]]
 binding = "CONTENT_KV"
-id = "f0edcba9876543210987654321abcdef"  # <--- Replace with copied CONTENT_KV ID[span_10](start_span)[span_10](end_span)
+id = "PASTE_CONTENT_KV_NAMESPACE_ID_HERE[span_4](start_span)"[span_4](end_span)
 
-# Cloudflare R2 Media Bucket Binding
 [[r2_buckets]]
 binding = "CUSTOM_UPLOADS"
-bucket_name = "netsorna-custom-uploads[span_11](start_span)"[span_11](end_span)
-
-# Global Environment Variables
-[vars]
-GOOGLE_SPREADSHEET_ID = "YOUR_TARGET_GOOGLE_SHEET_ID[span_12](start_span)[span_13](start_span)"[span_12](end_span)[span_13](end_span)
-GA_MEASUREMENT_ID = "G-XXXXXXXXXX[span_14](start_span)[span_15](start_span)"[span_14](end_span)[span_15](end_span)
+bucket_name = "netsorna-custom-uploads[span_7](start_span)"[span_7](end_span)
