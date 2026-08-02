@@ -91,6 +91,17 @@ button, input, select, textarea {
   font-size: inherit;
 }
 
+/* Base Page Wrapper Layout */
+.main-content,
+.page-wrapper {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + 24px) 16px 48px;
+  box-sizing: border-box;
+}
+
 /* --------------------------------------------------------------------------
    3. FLOATING EXPANDABLE GLASS NAVBAR & DRAWER
    -------------------------------------------------------------------------- */
@@ -347,8 +358,9 @@ button, input, select, textarea {
   pointer-events: none;
 }
 
-/* Standard Inputs */
-.form-input {
+/* Standard Inputs & Textareas */
+.form-input,
+textarea.form-input {
   width: 100%;
   padding: 12px 14px;
   border: 1px solid var(--border-color);
@@ -360,7 +372,8 @@ button, input, select, textarea {
   box-sizing: border-box;
 }
 
-.form-input:focus {
+.form-input:focus,
+textarea.form-input:focus {
   outline: none;
   border-color: var(--border-dark);
 }
