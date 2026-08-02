@@ -1,0 +1,414 @@
+/* ==========================================================================
+   NETSORNA STUDIO - MAIN GLOBAL STYLESHEET
+   Reference: public/css/main.css
+   Includes: Design Tokens, Modern Reset, Floating Navbar, Global UI Elements
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GLOBAL DESIGN TOKENS (CSS Custom Properties)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --bg-color: #ffffff;
+  --placeholder-color: #f2f0ec;
+  --border-color: #e2ded7;
+  --border-dark: #111111;
+  --text-dark: #111111;
+  --text-muted: #666666;
+  --accent-light: #f9f8f6;
+  --accent-gold: #c5a059;
+  --error-color: #d9381e;
+  --success-color: #2e7d32;
+
+  /* Fonts */
+  --font-main: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-accent: 'Reenie Beanie', cursive;
+
+  /* Layout & Spacing */
+  --nav-height: 80px;
+  --container-max-width: 1140px;
+
+  /* Border Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Transitions & Elevations */
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-glass: 0 12px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   2. BASE RESET & ACCESSIBILITY SETUP
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-main);
+  font-size: 16px;
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+a:hover {
+  opacity: 0.85;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   3. FLOATING EXPANDABLE GLASS NAVBAR & DRAWER
+   -------------------------------------------------------------------------- */
+.navbar-wrapper {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none; /* Allows click-through outside the bar */
+}
+
+.navbar {
+  pointer-events: auto;
+  width: 100%;
+  max-width: var(--container-max-width);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 222, 215, 0.8);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glass);
+  transition: all var(--transition-smooth);
+  overflow: hidden;
+}
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-color);
+}
+
+/* Top Action Bar */
+.navbar-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 20px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-img {
+  max-height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-dark);
+}
+
+/* Icon Buttons (Menu & Cart) */
+.menu-btn, .cart-btn {
+  background: none;
+  border: none;
+  color: var(--text-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: var(--radius-full);
+  transition: background var(--transition-fast);
+  position: relative;
+}
+
+.menu-btn:hover, .cart-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.menu-btn .icon-close {
+  display: none;
+}
+
+.menu-btn.active .icon-hamburger {
+  display: none;
+}
+
+.menu-btn.active .icon-close {
+  display: block;
+}
+
+/* Cart / Buy List Badge */
+.cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: var(--text-dark);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  height: 18px;
+  min-width: 18px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* Navigation & Buy List Drawer Area */
+.nav-drawer {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-smooth);
+  border-top: 1px solid transparent;
+  padding: 0 20px;
+}
+
+.navbar.expanded .nav-drawer {
+  max-height: 480px;
+  opacity: 1;
+  visibility: visible;
+  border-top-color: var(--border-color);
+  padding: 20px 20px 24px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.nav-links a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color var(--transition-fast);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* Header Buy List Widget In-Drawer Preview */
+.header-buy-list-widget {
+  background: var(--accent-light);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.widget-header h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dark);
+}
+
+.widget-items-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.widget-view-more-btn {
+  margin-top: 4px;
+  width: 100%;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   4. BUTTON & FORM COMPONENT SYSTEM
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.btn-solid {
+  background: var(--text-dark);
+  color: #ffffff;
+  border-color: var(--text-dark);
+}
+
+.btn-solid:hover {
+  background: #222222;
+  border-color: #222222;
+  opacity: 1;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-dark);
+  border-color: var(--border-dark);
+}
+
+.btn-outline:hover {
+  background: var(--accent-light);
+  opacity: 1;
+}
+
+.btn-subtle {
+  background: var(--accent-light);
+  color: var(--text-dark);
+  border-color: var(--border-color);
+}
+
+.btn-subtle:hover {
+  background: #ebe7df;
+  border-color: var(--border-dark);
+  opacity: 1;
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+}
+
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Standard Inputs */
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  background: #ffffff;
+  transition: border-color var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--border-dark);
+}
+
+/* --------------------------------------------------------------------------
+   5. TOAST NOTIFICATION WIDGET
+   -------------------------------------------------------------------------- */
+#netsorna-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--text-dark);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-md);
+  z-index: 3000;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#netsorna-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   6. RESPONSIVE BREAKPOINTS & LAYOUT REFINEMENTS
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .navbar-bar {
+    height: 72px;
+    padding: 0 28px;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    gap: 28px;
+  }
+
+  .navbar.expanded .nav-drawer {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 32px;
+    align-items: start;
+  }
+}
