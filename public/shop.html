@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Catalogue & Artworks — Netsorna</title>
+
+  <!-- SEO & Open Graph Dynamic Tags -->
+  <link rel="canonical" href="https://netsorna.website/shop.html" />
+  <meta name="description" content="Explore handcrafted linear relief sculptures, custom portrait commissions, architectural artwork, and ready-to-ship studio tiles." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Catalogue & Artworks — Netsorna" />
+  <meta property="og:description" content="Explore handcrafted linear relief sculptures, custom commissions, and limited studio editions." />
+  <meta property="og:url" content="https://netsorna.website/shop.html" />
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/shop.css" />
+</head>
+<body>
+
+  <!-- FLOATING EXPANDABLE GLASS HEADER WITH BUY LIST DRAWER WIDGET -->
+  <div class="navbar-wrapper">
+    <header class="navbar" id="navbar">
+      <!-- Top Action Bar -->
+      <div class="navbar-bar">
+        <button class="menu-btn" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="navDrawer" id="menuToggle">
+          <svg class="icon-hamburger" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <a href="/index.html" class="brand-logo" aria-label="Netsorna Home">
+          <img 
+            src="/images/icons/horizontal_logo.svg" 
+            alt="Netsorna Logo" 
+            class="logo-img" 
+            width="160" 
+            height="40" 
+            onerror="this.outerHTML='<span class=\'logo-text\'>NETSORNA.</span>'" 
+          />
+        </a>
+
+        <!-- Header Buy List Icon Button -->
+        <button class="cart-btn" aria-label="View Buy List Selection" id="buyListHeaderBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+          <span class="cart-badge" id="buyListBadge">0</span>
+        </button>
+      </div>
+
+      <!-- Integrated Navigation & Buy List Drawer Container -->
+      <nav class="nav-drawer" id="navDrawer" aria-hidden="true">
+        <ul class="nav-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/shop.html" class="active">Shop Artworks</a></li>
+          <li><a href="/buy-list.html">Review Buy List</a></li>
+          <li><a href="/faqs.html">FAQs</a></li>
+        </ul>
+
+        <!-- Header Buy List Drawer Widget Content -->
+        <div class="header-buy-list-widget" id="headerBuyListWidget">
+          <div class="widget-header">
+            <h4>Your Selected Items</h4>
+          </div>
+          <div class="widget-items-preview" id="widgetItemsPreview">
+            <p class="empty-msg">Your Buy List is currently empty.</p>
+          </div>
+          <a href="/buy-list.html" class="btn btn-solid btn-sm widget-view-more-btn" id="widgetViewMoreBtn">
+            View Buy List
+          </a>
+        </div>
+      </nav>
+    </header>
+  </div>
+
+  <!-- MAIN SHOP CATALOGUE CONTENT -->
+  <main class="shop-page-wrapper">
+
+    <!-- Store Header Section -->
+    <header class="shop-header" style="margin-bottom: 32px; text-align: center;">
+      <span style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-gold); display: block; margin-bottom: 8px;">
+        Curated Studio Catalogue
+      </span>
+      <h1 style="font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; color: var(--text-dark); margin-bottom: 10px;">
+        Artworks & Commissions
+      </h1>
+      <p style="font-size: 0.92rem; color: var(--text-muted); max-width: 580px; margin: 0 auto; line-height: 1.6;">
+        Explore custom relief commissions, hand-cast sculptural tiles, and limited gallery originals.
+      </p>
+    </header>
+
+    <!-- Filter / Category Navigation Tabs -->
+    <div class="shop-filter-bar" style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px;">
+      <button type="button" class="filter-btn active" data-filter="all" style="padding: 8px 18px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; border: 1px solid var(--border-dark); background: var(--text-dark); color: #fff; cursor: pointer;">
+        All Artworks
+      </button>
+      <button type="button" class="filter-btn" data-filter="custom" style="padding: 8px 18px; border-radius: 20px; font-size: 0.82rem; font-weight: 500; border: 1px solid var(--border-color); background: #fff; color: var(--text-muted); cursor: pointer;">
+        Custom Reliefs
+      </button>
+      <button type="button" class="filter-btn" data-filter="ready-made" style="padding: 8px 18px; border-radius: 20px; font-size: 0.82rem; font-weight: 500; border: 1px solid var(--border-color); background: #fff; color: var(--text-muted); cursor: pointer;">
+        Ready-Made & Atelier
+      </button>
+    </div>
+
+    <!-- Catalogue Grid Display Container -->
+    <div class="product-grid" id="shopCatalogueGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px;">
+      
+      <!-- Skeleton Loaders (Replaced dynamically by JS or fallback) -->
+      <article class="product-card skeleton-card" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background: #fff; height: 380px;">
+        <div class="skeleton-image"></div>
+        <div style="padding: 16px;"><div class="skeleton-text"></div></div>
+      </article>
+      <article class="product-card skeleton-card" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background: #fff; height: 380px;">
+        <div class="skeleton-image"></div>
+        <div style="padding: 16px;"><div class="skeleton-text"></div></div>
+      </article>
+
+    </div>
+
+    <!-- Production Notice Section -->
+    <section style="margin-top: 56px; padding: 20px; background: var(--accent-light); border-left: 4px solid var(--accent-gold); border-radius: 4px;">
+      <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 4px;">⏱️ Bespoke Production & Slot Management</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+        Custom linear relief orders are strictly capped weekly to preserve high studio standards. Orders carry a 14–20 studio turnaround window prior to express courier delivery.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer" style="margin-top: 60px; border-top: 1px solid var(--border-color); padding: 40px 16px 20px; background: var(--accent-light);">
+    <div class="footer-top" style="max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; padding-bottom: 30px;">
+      <div class="footer-brand">
+        <span class="footer-logo" style="font-weight: 700; font-size: 1.2rem; letter-spacing: -0.5px;">NETSORNA.</span>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 8px;">Curated fine art, relief sculptures, and custom interior pieces.</p>
+      </div>
+      <div class="footer-links-group">
+        <h4 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Navigation</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem;">
+          <li><a href="/shop.html" style="color: var(--text-muted); text-decoration: none;">Catalogue</a></li>
+          <li><a href="/buy-list.html" style="color: var(--text-muted); text-decoration: none;">Buy List</a></li>
+          <li><a href="/faqs.html" style="color: var(--text-muted); text-decoration: none;">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-links-group">
+        <h4 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Legal</h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem;">
+          <li><a href="/terms.html" style="color: var(--text-muted); text-decoration: none;">Terms of Service</a></li>
+          <li><a href="/privacy.html" style="color: var(--text-muted); text-decoration: none;">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom" style="max-width: 1140px; margin: 0 auto; border-top: 1px solid var(--border-color); padding-top: 16px; font-size: 0.78rem; color: var(--text-muted); text-align: center;">
+      <span>&copy; 2026 Netsorna. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="netsorna-toast"></div>
+
+  <!-- Application Execution Scripts -->
+  <script src="/js/main.js"></script>
+  <script src="/js/limits-guard.js"></script>
+
+  <!-- Shop Catalogue Engine Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const grid = document.getElementById('shopCatalogueGrid');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      let productsList = [];
+
+      // Static fallback products if endpoint KV is offline
+      const fallbackProducts = [
+        {
+          sku: 'NET-CUST-PORTRAIT',
+          title: 'Bespoke Custom Portrait Relief',
+          price: 3450,
+          type: 'custom-1',
+          description: 'Handcrafted linear relief sculpture rendered from your reference photograph.',
+          image: '/images/products/portrait-hero.jpg'
+        },
+        {
+          sku: 'NET-CUST-OBJECT',
+          title: 'Custom Architectural & Object Relief',
+          price: 2850,
+          type: 'custom-2',
+          description: 'Minimalist relief capture for architectural structures, heirlooms, or organic forms.',
+          image: '/images/products/object-hero.jpg'
+        },
+        {
+          sku: 'NET-LUX-PIECE',
+          title: 'Grand Relief Monument — Atelier Series',
+          price: 18500,
+          type: 'ready-made',
+          inquiryOnly: true,
+          description: 'Large-scale gallery original piece. Consult via WhatsApp for acquisition details.',
+          image: '/images/products/luxury-main.jpg'
+        },
+        {
+          sku: 'NET-READY-ITEM',
+          title: 'Studio Sculptural Tile — Limited Edition',
+          price: 1200,
+          type: 'ready-made',
+          description: 'Ready-to-ship hand-cast studio sculpture tile. Dispatches within 48 hours.',
+          image: '/images/products/ready-main.jpg'
+        }
+      ];
+
+      // Fetch Catalogue Data from Worker API
+      try {
+        const res = await fetch('/api/products');
+        if (res.ok) {
+          productsList = await res.json();
+        } else {
+          productsList = fallbackProducts;
+        }
+      } catch (e) {
+        productsList = fallbackProducts;
+      }
+
+      renderProducts(productsList);
+
+      // Filtering Logic
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.style.background = '#fff';
+            b.style.color = 'var(--text-muted)';
+            b.style.borderColor = 'var(--border-color)';
+            b.classList.remove('active');
+          });
+
+          btn.style.background = 'var(--text-dark)';
+          btn.style.color = '#fff';
+          btn.style.borderColor = 'var(--border-dark)';
+          btn.classList.add('active');
+
+          const filter = btn.dataset.filter;
+          if (filter === 'all') {
+            renderProducts(productsList);
+          } else if (filter === 'custom') {
+            renderProducts(productsList.filter(p => p.type && p.type.startsWith('custom')));
+          } else if (filter === 'ready-made') {
+            renderProducts(productsList.filter(p => p.type === 'ready-made'));
+          }
+        });
+      });
+
+      function renderProducts(items) {
+        if (!grid) return;
+        if (items.length === 0) {
+          grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No artworks found in this category.</p>`;
+          return;
+        }
+
+        grid.innerHTML = items.map(p => `
+          <article class="product-card" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background: #fff; display: flex; flex-direction: column;">
+            <a href="/product.html?sku=${p.sku}" style="display: block; aspect-ratio: 1/1; background: var(--placeholder-color); overflow: hidden;">
+              <img src="${p.image || (p.images && p.images[0]) || '/images/placeholder.jpg'}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/images/placeholder.jpg'" />
+            </a>
+            <div style="padding: 16px; display: flex; flex-direction: column; flex-grow: 1;">
+              <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 6px;">
+                <a href="/product.html?sku=${p.sku}" style="color: var(--text-dark); text-decoration: none;">${p.title}</a>
+              </h3>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; line-clamp: 2; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
+                ${p.description || 'Handcrafted bespoke artwork made with linear relief precision.'}
+              </p>
+              <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--accent-light);">
+                <span style="font-weight: 700; font-size: 0.95rem;">R ${Number(p.price).toLocaleString()}</span>
+                <a href="/product.html?sku=${p.sku}" class="btn btn-subtle btn-sm">View Details</a>
+              </div>
+            </div>
+          </article>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>
