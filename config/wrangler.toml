@@ -1,11 +1,30 @@
 [[kv_namespaces]]
 binding = "ORDERS_KV"
-id = "4602170a47ec41cea03eb42e2eb8e481[span_3](start_span)"[span_3](end_span)
+id = "4602170a47ec41cea03eb42e2eb8e481"
 
 [[kv_namespaces]]
 binding = "CONTENT_KV"
-id = "47cc0ed6a0ea4ac1a7f79458537bd4de[span_4](start_span)"[span_4](end_span)
+id = "47cc0ed6a0ea4ac1a7f79458537bd4de"
 
 [[r2_buckets]]
 binding = "CUSTOM_UPLOADS"
-bucket_name = "netsorna-custom-uploads[span_7](start_span)"[span_7](end_span)
+bucket_name = "netsorna-custom-uploads"
+
+# ADD THESE LINES:
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[build]
+command = "npm run build"
+cwd = "."
+
+[build.upload]
+format = "service-worker"
+
+[[routes]]
+pattern = "*"
+zone_name = "netsorna.website"
+
+# Static assets configuration
+[site]
+bucket = "public"
