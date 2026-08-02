@@ -90,91 +90,105 @@
     </header>
   </div>
 
-  <!-- STOREFRONT HOME CONTENT -->
-  <main class="shop-page-wrapper">
+  <!-- MAIN HOMEPAGE CONTENT MATCHING IMAGE LAYOUT -->
+  <main class="shop-page-wrapper" style="padding-top: calc(var(--nav-height) + 24px);">
     
-    <!-- Hero Banner Section -->
-    <section class="hero-section" style="text-align: center; padding: 48px 20px 36px; background: var(--accent-light); border-radius: var(--radius-lg); margin-bottom: 40px; border: 1px solid var(--border-color);">
-      <span style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-gold); display: block; margin-bottom: 8px;">
-        Artisanal Commission Studio
-      </span>
-      <h1 style="font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; line-height: 1.25; color: var(--text-dark); margin-bottom: 12px;">
-        Linear Relief Sculptures & Custom Artworks
-      </h1>
-      <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 24px; line-height: 1.6;">
-        Transform your photographs, architectural landmarks, and favorite memories into handcrafted tactile relief art.
-      </p>
-      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-        <a href="/shop.html" class="btn btn-solid btn-lg" style="width: auto;">Explore Collection</a>
-        <a href="/product.html?sku=NET-CUST-PORTRAIT" class="btn btn-outline btn-lg" style="width: auto;">Commission Portrait</a>
+    <!-- Hero / Main Showcase Section -->
+    <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; align-items: center; margin-bottom: 56px;">
+      
+      <!-- Text & Call-To-Action Block -->
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <span style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-gold);">
+          Artisanal Commission Studio
+        </span>
+        <h1 style="font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15; color: var(--text-dark);">
+          Linear Relief Sculptures & Custom Artworks
+        </h1>
+        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; max-width: 500px;">
+          Transform your photographs, architectural landmarks, and favorite memories into handcrafted tactile relief art.
+        </p>
+        <div style="display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap;">
+          <a href="/shop.html" class="btn btn-solid btn-lg" style="width: auto;">Explore Collection</a>
+          <a href="/product.html?sku=NET-PRT-001" class="btn btn-outline btn-lg" style="width: auto;">Commission Portrait</a>
+        </div>
       </div>
+
+      <!-- Main Visual Showcase Block -->
+      <div style="position: relative; width: 100%; aspect-ratio: 4/5; background: var(--placeholder-color); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-color);">
+        <img 
+          src="/images/products/portrait-hero.jpg" 
+          alt="Featured Relief Art Piece" 
+          style="width: 100%; height: 100%; object-fit: cover;" 
+          onerror="this.src='/images/placeholder.jpg'"
+        />
+      </div>
+
     </section>
 
-    <!-- Featured Catalogue Grid -->
-    <section class="catalogue-preview">
+    <!-- Secondary Showcase Row -->
+    <section style="margin-bottom: 56px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
         <div>
-          <h2 style="font-size: 1.35rem; font-weight: 700;">Featured Artworks</h2>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">Handmade in small studio batches</p>
+          <h2 style="font-size: 1.5rem; font-weight: 700;">Featured Artworks</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">Handmade in small studio batches</p>
         </div>
-        <a href="/shop.html" style="font-size: 0.85rem; font-weight: 600; color: var(--text-dark); text-decoration: underline;">View All &rarr;</a>
+        <a href="/shop.html" style="font-size: 0.88rem; font-weight: 600; color: var(--text-dark); text-decoration: underline;">View All &rarr;</a>
       </div>
 
-      <!-- Catalogue Product Display Grid -->
-      <div class="product-grid" id="featuredProductGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px;">
+      <div class="product-grid" id="featuredProductGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
         
-        <!-- Card 1: Custom Portrait -->
+        <!-- Card 1 -->
         <article class="product-card" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background: #fff; display: flex; flex-direction: column;">
           <a href="/product.html?sku=NET-PRT-001" style="display: block; aspect-ratio: 1/1; background: var(--placeholder-color); overflow: hidden;">
             <img src="/images/products/portrait-hero.jpg" alt="Bespoke Custom Portrait Relief" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/images/placeholder.jpg'" />
           </a>
-          <div style="padding: 16px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 6px;">
+          <div style="padding: 18px; display: flex; flex-direction: column; flex-grow: 1;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 6px;">
               <a href="/product.html?sku=NET-PRT-001" style="color: var(--text-dark); text-decoration: none;">Bespoke Custom Portrait Relief</a>
             </h3>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; line-clamp: 2; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; line-clamp: 2; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
               Handcrafted linear relief sculpture rendered from your reference photograph.
             </p>
             <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--accent-light);">
-              <span style="font-weight: 700; font-size: 0.95rem;">R 4,500</span>
+              <span style="font-weight: 700; font-size: 1rem;">R 4,500</span>
               <a href="/product.html?sku=NET-PRT-001" class="btn btn-subtle btn-sm">View Details</a>
             </div>
           </div>
         </article>
 
-        <!-- Card 2: Custom Object -->
+        <!-- Card 2 -->
         <article class="product-card" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background: #fff; display: flex; flex-direction: column;">
           <a href="/product.html?sku=NET-OBJ-002" style="display: block; aspect-ratio: 1/1; background: var(--placeholder-color); overflow: hidden;">
             <img src="/images/products/object-hero.jpg" alt="Custom Architectural & Object Relief" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/images/placeholder.jpg'" />
           </a>
-          <div style="padding: 16px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 6px;">
+          <div style="padding: 18px; display: flex; flex-direction: column; flex-grow: 1;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 6px;">
               <a href="/product.html?sku=NET-OBJ-002" style="color: var(--text-dark); text-decoration: none;">Custom Architectural & Object Relief</a>
             </h3>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; line-clamp: 2; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; line-clamp: 2; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
               Minimalist relief capture for architectural structures, heirlooms, or organic forms.
             </p>
             <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--accent-light);">
-              <span style="font-weight: 700; font-size: 0.95rem;">R 5,200</span>
+              <span style="font-weight: 700; font-size: 1rem;">R 5,200</span>
               <a href="/product.html?sku=NET-OBJ-002" class="btn btn-subtle btn-sm">View Details</a>
             </div>
           </div>
         </article>
 
-        <!-- Card 3: Ready-Made Item -->
+        <!-- Card 3 -->
         <article class="product-card" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background: #fff; display: flex; flex-direction: column;">
           <a href="/product.html?sku=NET-RDY-004" style="display: block; aspect-ratio: 1/1; background: var(--placeholder-color); overflow: hidden;">
-            <img src="/images/products/ready-main.jpg" alt="Abstract Geometric Relief — Edition #04" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/images/placeholder.jpg'" />
+            <img src="/images/products/ready-main.jpg" alt="Abstract Geometric Relief" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/images/placeholder.jpg'" />
           </a>
-          <div style="padding: 16px; display: flex; flex-direction: column; flex-grow: 1;">
-            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 6px;">
+          <div style="padding: 18px; display: flex; flex-direction: column; flex-grow: 1;">
+            <h3 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 6px;">
               <a href="/product.html?sku=NET-RDY-004" style="color: var(--text-dark); text-decoration: none;">Abstract Geometric Relief — Edition #04</a>
             </h3>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; line-clamp: 2; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; line-clamp: 2; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
               Ready-to-ship hand-cast studio sculpture tile featuring clean geometric lines.
             </p>
             <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--accent-light);">
-              <span style="font-weight: 700; font-size: 0.95rem;">R 3,200</span>
+              <span style="font-weight: 700; font-size: 1rem;">R 3,200</span>
               <a href="/product.html?sku=NET-RDY-004" class="btn btn-subtle btn-sm">View Details</a>
             </div>
           </div>
@@ -183,13 +197,14 @@
       </div>
     </section>
 
-    <!-- Bespoke Turnaround Banner -->
-    <section style="margin-top: 48px; padding: 20px; background: var(--accent-light); border-left: 4px solid var(--accent-gold); border-radius: 4px;">
-      <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 4px;">Bespoke Production Timeline</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+    <!-- Bespoke Production Timeline Notice -->
+    <section style="padding: 24px; background: var(--accent-light); border-left: 4px solid var(--accent-gold); border-radius: var(--radius-sm);">
+      <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px;">Bespoke Production Timeline</h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
         Each custom order requires 14–20 studio turnaround days prior to express courier dispatch to maintain high artisanal standards and structural finish.
       </p>
     </section>
+
   </main>
 
   <!-- SITE FOOTER -->
