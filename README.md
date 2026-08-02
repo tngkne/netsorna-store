@@ -1,0 +1,1 @@
+# netsorna-store
