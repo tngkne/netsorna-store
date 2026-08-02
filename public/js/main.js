@@ -1,7 +1,7 @@
 /**
  * public/js/main.js
  * Global Application Execution: Handles GA4 initialization, 
- * expanding header Buy List drawer widget, and toast notifications.
+ * expanding header Buy List drawer widget, cart badges, and toast notifications.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- 1. GA4 TRACKING INITIALIZATION ---
 function initGoogleAnalytics() {
-  const gaId = 'G-XXXXXXXXXX'; // Replace with your GA4 Measurement ID
+  const gaId = 'G-XXXXXXXXXX'; // Replace with GA4 Measurement ID
   if (!gaId || gaId.includes('XXXXX')) return;
 
   const script = document.createElement('script');
@@ -49,7 +49,7 @@ function initHeaderDrawer() {
     });
   }
 
-  if (buyListHeaderBtn && navbar) {
+  if (buyListHeaderBtn) {
     buyListHeaderBtn.addEventListener('click', () => {
       window.location.href = '/buy-list.html';
     });
@@ -92,7 +92,7 @@ function renderHeaderWidgetPreview() {
 
 // --- 3. BADGE COUNTER UPDATER ---
 function updateCartBadge() {
-  const badge = document.getElementById('buyListBadge');
+  const badge = document.getElementById('buyListBadge') || document.getElementById('cartBadge');
   if (!badge) return;
 
   try {
