@@ -1,0 +1,14 @@
+{
+  "sku": "NET-PRT-001",
+  "title": "PORTRAIT RELIEF (1–5 FACES)",
+  "price": 4500,
+  "customType": "custom-1",
+  "inquiryOnly": false,
+  "description": "Bespoke linear relief artwork handcrafted from your reference photographs. Perfect for capturing 1 to 5 faces in a sleek, modern architectural aesthetic.",
+  "specs": "Material: High-density composite relief block. Dimensions: 40cm x 50cm. Frame: Minimalist floating frame included. Lead time: 14-20 days.",
+  "images": [
+    "hero.jpg",
+    "detail-1.jpg"
+  ],
+  "category": "Custom Commissions"
+}
